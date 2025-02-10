@@ -159,7 +159,7 @@ where:
   - If **class weights** \(w_y\) are provided, the loss becomes:
   
   $$
-    \text{CrossEntropyLoss}(\mathbf{X}, \mathbf{Y}) = \frac{1}{N} \sum_{i=1}^{N} -w_{y_i} \log \left( \frac{e^{x_{i,y_i}}}{\sum_{j} e^{x_{i,j}}} \right)
+  \text{CrossEntropyLoss}(\mathbf{X}, \mathbf{Y}) = \frac{1}{N} \sum_{i=1}^{N} -w_{y_i} \log \left( \frac{e^{x_{i,y_i}}}{\sum_{j} e^{x_{i,j}}} \right)
   $$
   
   
