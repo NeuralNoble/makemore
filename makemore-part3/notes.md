@@ -4,7 +4,7 @@ The issue Karpathy encounters in the third video is  **saturation in the tanh ac
 
 ### What’s Happening in Karpathy’s Code?
 
-1. He initializes $ W_2 $ and $ b_2 $ with standard values.
+1. He initializes $W_2$ and $b_2$ with standard values.
 2. After applying the **tanh activation**, a lot of neuron outputs become **-1 or 1**.
 3. The derivative of **tanh** is:
    
@@ -60,14 +60,14 @@ Now, let’s break down the terms **"flat region"** and **"tail"**.
 
 ### **1. Flat Region of tanh**
 - The function **flattens out** when \( x \) is **very large or very small**.
-- This happens because $ \tanh(x) $ asymptotically approaches **1 for large $ x $ and -1 for small $ x $**.
+- This happens because $\tanh(x)$ asymptotically approaches **1 for large $ x $ and -1 for small $ x $**.
 - In these regions, the slope (gradient) is **close to zero**.
 
 #### 🔥 **Why is this a problem?**
 - During backpropagation, the weight updates depend on the **derivative** of tanh:
   
   $\tanh'(x) = 1 - \tanh^2(x)$
-- If $ x $ is **large or small**, then $ \tanh(x) \approx 1 $ or $ -1 $, and
+- If $x$ is **large or small**, then $\tanh(x) \approx 1$ or  -1 , and
   
   $\tanh'(x) \approx 0$
 
@@ -94,8 +94,8 @@ Now, let’s break down the terms **"flat region"** and **"tail"**.
 
 ### **Visualizing It**
 Imagine the tanh curve:  
-- The middle part (near \( x = 0 \)) has a **steep slope** → Good for learning.  
-- The tails (near $ x \to \pm\infty $ are **flat** → Bad for learning.
+- The middle part (near $x = 0$) has a **steep slope** → Good for learning.  
+- The tails (near $x \to \pm\infty$ are **flat** → Bad for learning.
 
 This is why he tweaks the initialization to avoid the **flat/tail regions** and keep activations in the **steep region**.
 
@@ -121,10 +121,10 @@ Weight initialization is **critical** for stable and efficient training. A bad i
 ### **Formula**  
 - **Uniform:**  
   
-  $W \sim U\left(-\frac{\sqrt{6}}{\sqrt{\text{fan\_in} + \text{fan\_out}}}, \frac{\sqrt{6}}{\sqrt{\text{fan\_in} + \text{fan\_out}}}\right)$
+  $W \sim U\left(-\frac{\sqrt{6}}{\sqrt{\text{fan-in} + \text{fan-out}}}, \frac{\sqrt{6}}{\sqrt{\text{fan-in} + \text{fan-out}}}\right)$
 - **Normal:**  
   
-  $W \sim \mathcal{N}\left(0, \frac{1}{\text{fan\_in} + \text{fan\_out}}\right)$
+  $W \sim \mathcal{N}\left(0, \frac{1}{\text{fan-in} + \text{fan-out}}\right)$
 
 📌 **When to use?**  
 ✅ Works well with **sigmoid and tanh** activations.  
@@ -142,11 +142,11 @@ Weight initialization is **critical** for stable and efficient training. A bad i
 ### **Formula**  
 - **Uniform:**  
   
-  $W \sim U\left(-\sqrt{\frac{6}{\text{fan\_in}}}, \sqrt{\frac{6}{\text{fan\_in}}}\right)$
+  $W \sim U\left(-\sqrt{\frac{6}{\text{fan-in}}}, \sqrt{\frac{6}{\text{fan-in}}}\right)$
   
 - **Normal:**  
   
-  $W \sim \mathcal{N}\left(0, \frac{2}{\text{fan\_in}}\right)$
+  $W \sim \mathcal{N}\left(0, \frac{2}{\text{fan-in}}\right)$
   
 
 📌 **When to use?**  
@@ -165,7 +165,7 @@ Weight initialization is **critical** for stable and efficient training. A bad i
 ### **Formula**  
 - **Normal:**  
   
-  $W \sim \mathcal{N}\left(0, \frac{1}{\text{fan\_in}}\right)$
+  $W \sim \mathcal{N}\left(0, \frac{1}{\text{fan-in}}\right)$
 
 
 📌 **When to use?**  
@@ -182,7 +182,7 @@ Weight initialization is **critical** for stable and efficient training. A bad i
 📌 **Goal:** Ensures weight matrices have unit norm, preventing gradient explosion or collapse.  
 
 ### **Steps:**  
-1. Create a random weight matrix $ W $  
+1. Create a random weight matrix $W$  
 2. Apply **QR decomposition** to make it orthogonal.  
 3. Use the resulting **orthogonal matrix** as initialization.  
 
@@ -211,7 +211,7 @@ Weight initialization is **critical** for stable and efficient training. A bad i
 ### **Formula**  
 
 $W \sim \mathcal{N}(0, \epsilon)$
-where $ \epsilon $ is a **very small** number (e.g., 0.01).  
+where $\epsilon$ is a **very small** number (e.g., 0.01).  
 
 📌 **When to use?**  
 ✅ Small networks with **sigmoid/tanh** activations.  
@@ -269,9 +269,9 @@ $$
 
 where:
 
-- \(x\) is the input.
-- \(W\) is the weight.
-- \(y\) is the output.
+- $x$ is the input.
+- $W$ is the weight.
+- $y$ is the output.
 
 For a layer with multiple neurons:
 
@@ -355,13 +355,13 @@ $$
 To **compensate**, we multiply by 2:
 
 $$
-\sigma^2 = \frac{2}{\text{fan_in}}
+\sigma^2 = \frac{2}{\text{fan-in}}
 $$
 
 Taking the square root:
 
 $$
-\sigma = \sqrt{\frac{2}{\text{fan_in}}}
+\sigma = \sqrt{\frac{2}{\text{fan-in}}}
 $$
 
 This is **Kaiming (He) Initialization**, optimal for **ReLU-based networks**.
@@ -372,8 +372,8 @@ This is **Kaiming (He) Initialization**, optimal for **ReLU-based networks**.
 
 | Activation            | Variance of Weights       | Standard Deviation               |
 | --------------------- |---------------------------|----------------------------------|
-| **Sigmoid / tanh**    | $\frac{1}{\text{fan_in}}$ | $\frac{1}{\sqrt{\text{fan_in}}}$ |
-| **ReLU / Leaky ReLU** | $\frac{2}{\text{fan_in}}$ | $\sqrt{\frac{2}{\text{fan_in}}}$ |
+| **Sigmoid / tanh**    | $\frac{1}{\text{fan-in}}$ | $\frac{1}{\sqrt{\text{fan-in}}}$ |
+| **ReLU / Leaky ReLU** | $\frac{2}{\text{fan-in}}$ | $\sqrt{\frac{2}{\text{fan-in}}}$ |
 
 ---
 
@@ -402,7 +402,7 @@ torch.nn.init.kaiming_normal_(w, mode='fan_in', nonlinearity='relu')
 
 The **main goal** of initialization is to ensure that activations and gradients remain well-scaled throughout the network. Here’s the breakdown:  
 
-1. **Input Normalization**: We assume that our input \( x \) is normalized (mean **0**, variance **1**).  
+1. **Input Normalization**: We assume that our input $x$ is normalized (mean **0**, variance **1**).  
 2. **Weight Initialization**: Since we can’t modify the input, we control the **distribution of weights** so that after the dot product, activations remain stable.  
 3. **Avoiding Exploding/Vanishing Activations**: If weights are too large, activations explode → gradients explode. If weights are too small, activations shrink → gradients vanish.  
 4. **Keeping Variance Stable**: We derived the required **variance** for weights so that after passing through multiple layers, the output remains well-scaled.  
@@ -418,18 +418,19 @@ which prevents extreme values and helps avoid vanishing/exploding gradients.
 That’s why Xavier initialization is crucial for **sigmoid/tanh** and Kaiming is used for **ReLU** (which has a different behavior).  
 
 
-Now lets answer how did we come up with idea that :
+Now lets answer how did we come up with idea that:
+
 $$
 \text{Var}(y) \approx \text{Var}(x)
 $$
 
-### **1️⃣ What Happens If Var(y) > Var(x)? (Exploding Activations)**
-If the variance of \( y \) **keeps increasing** at each layer, activations will grow larger and larger.  
+### **1️⃣ What Happens If $Var(y) > Var(x)$? (Exploding Activations)**
+If the variance of $y$ **keeps increasing** at each layer, activations will grow larger and larger.  
 - This leads to **large activations**, which cause activation functions (like tanh or sigmoid) to saturate.  
 - In saturated regions, gradients are near **zero**, leading to **vanishing gradients** during backpropagation.  
 
-### **2️⃣ What Happens If Var(y) < Var(x)? (Vanishing Activations)**
-If the variance of \( y \) **keeps decreasing**, activations shrink with each layer.  
+### **2️⃣ What Happens If $Var(y) < Var(x)$? (Vanishing Activations)**
+If the variance of $y$ **keeps decreasing**, activations shrink with each layer.  
 - This results in **very small activations**, which means gradients will get **even smaller** during backpropagation.  
 - Eventually, the network stops learning because gradients vanish entirely.  
 
@@ -452,7 +453,7 @@ We didn’t pull it out of thin air—it comes from empirical observations:
 - If variance shrinks → gradients vanish.  
 - Keeping variance stable leads to good learning.  
 
-Mathematically, we **derive** the right weight variance $ \sigma^2 $ by forcing:  
+Mathematically, we **derive** the right weight variance $\sigma^2$ by forcing:  
 
 $$
 \text{Var}(y) = \text{Var}(x)
@@ -460,7 +461,7 @@ $$
 
 which gives us the **Xavier/Glorot** and **Kaiming/He** initialization formulas.  
 
-So, it's not an arbitrary We can’t set Var(y) = Var(W) because we’re actually solving for Var(W). But we do have Var(x) (since we usually assume inputs are normalized), so we use that as our reference point.
+So, it's not an arbitrary We can’t set $Var(y) = Var(W)$ because we’re actually solving for Var(W). But we do have Var(x) (since we usually assume inputs are normalized), so we use that as our reference point.
 
 Basically, we ask:
 
@@ -469,28 +470,28 @@ Basically, we ask:
 
 ### Why Multiply by 2 for ReLU?
 
-1️⃣ For activations like **tanh/sigmoid**, using **$ 1 / \sqrt{\text{fan_in}} $** works because their outputs are roughly balanced around zero and don’t drastically cut the variance.  
+1️⃣ For activations like **tanh/sigmoid**, using **$1 / \sqrt{\text{fan_in}}$** works because their outputs are roughly balanced around zero and don’t drastically cut the variance.  
 
 2️⃣ **ReLU, however, zeroes out negative values**, meaning half of the values are removed. Since the input $ y $ (before ReLU) was symmetric around zero, **ReLU keeps only the positive half**.  
 
-3️⃣ Mathematically, this causes **Var(ReLU(y)) = ½ Var(y)** (variance gets halved).  
+3️⃣ Mathematically, this causes **$Var(ReLU(y)) = ½ Var(y)$** (variance gets halved).  
 
-4️⃣ Normally, we ensure **Var(y) = Var(x)**, but since ReLU **cuts it in half**, we compensate by **doubling the variance of W**.  
+4️⃣ Normally, we ensure **$Var(y) = Var(x)$**, but since ReLU **cuts it in half**, we compensate by **doubling the variance of W**.  
 
-5️⃣ Solving for **Var(W)**:  
-
-   $$
-   \frac{1}{2} \cdot \text{fan_in} \cdot \text{Var}(W) = 1
-   $$
+5️⃣ Solving for **$Var(W)$**:  
 
    $$
-   \text{Var}(W) = \frac{2}{\text{fan_in}}
+   \frac{1}{2} \cdot \text{fan-in} \cdot \text{Var}(W) = 1
+   $$
+
+   $$
+   \text{Var}(W) = \frac{2}{\text{fan-in}}
    $$
 
 6️⃣ Taking the square root:  
 
    $$
-   \sigma_W = \frac{\sqrt{2}}{\sqrt{\text{fan_in}}}
+   \sigma_W = \frac{\sqrt{2}}{\sqrt{\text{fan-in}}}
    $$
 
 
@@ -537,18 +538,19 @@ $$
 ---
 
 ### **Step 2: Compute Variance**  
-Variance for each feature \( j \):  
+Variance for each feature $j$:  
 
 $$
 \sigma_j^2 = \frac{1}{m} \sum_{i=1}^{m} (x_{i,j} - \mu_j)^2
 $$
 
-To prevent division by zero, we use a small constant \( \epsilon \).
+To prevent division by zero, we use a small constant $\epsilon$.
 
 ---
 
 ### **Step 3: Normalize Each Input**  
 Each input is then normalized using the computed mean and variance:  
+
 
 $$
 \hat{x}_{i,j} = \frac{x_{i,j} - \mu_j}{\sqrt{\sigma_j^2 + \epsilon}}
@@ -562,8 +564,8 @@ This ensures that each feature has:
 
 ### **Step 4: Scale and Shift (Learnable Parameters)**  
 To allow the model to **learn an optimal distribution**, we introduce two learnable parameters:  
-- $ \gamma_j  (scale)  $
-- $ \beta_j  (shift) $ 
+- $\gamma_j$  (scale)
+- $\beta_j$  (shift) 
 
 Final transformation:  
 
@@ -607,13 +609,17 @@ Example:
 
 ### **2️⃣ What Do γ and β Do?**  
 Once the activations are normalized as:  
+
 $$
 \hat{x} = \frac{x - \mu}{\sigma}
 $$
+
 We apply a **learnable transformation**:
+
 $$
 y = \gamma \hat{x} + \beta
 $$
+
 - **$γ$ > 1** → Expands the activations (increases variance).  
 - **0 < $γ$ < 1** → Compresses the activations (reduces variance).  
 - **$β$ shifts** the activations left or right, changing the mean.  
@@ -645,7 +651,8 @@ BatchNorm isn’t just normalization—it’s an **adaptive transformation** tha
 ### **How Are Mean and Variance Calculated During Testing?**  
 During **testing (inference)**, BatchNorm **does not** compute the mean and variance from the current batch like it does during training. Instead, it uses **running estimates** of mean and variance that were computed during training.  
 
-During **training**, BatchNorm maintains **running statistics**:  
+During **training**, BatchNorm maintains **running statistics**: 
+
 $$
 \mu_{\text{running}} = (1 - \alpha) \cdot \mu_{\text{running}} + \alpha \cdot \mu_{\text{batch}}
 $$
@@ -653,6 +660,7 @@ $$
 $$
 \sigma^2_{\text{running}} = (1 - \alpha) \cdot \sigma^2_{\text{running}} + \alpha \cdot \sigma^2_{\text{batch}}
 $$
+
 where:  
 - $\alpha$ (momentum, typically ~0.9) controls how much we update the running averages.  
 - $\mu_{\text{batch}}$ and $\sigma^2_{\text{batch}}$ are the mean and variance of the **current batch** during training.  
@@ -662,6 +670,7 @@ During **testing**, instead of using batch statistics, we use these **precompute
 $$
 \hat{x} = \frac{x - \mu_{\text{running}}}{\sqrt{\sigma^2_{\text{running}} + \epsilon}}
 $$
+
 where $\epsilon$ is a small constant to prevent division by zero.
 
 ### **Why Do We Do This?**  
@@ -710,9 +719,9 @@ $$
 $$
 
 where:
-- $ \mathcal{L} $ = total loss (original loss + penalty)
-- $ \lambda $ = regularization strength (higher = more penalty)
-- $ w^2 $ = sum of squared weights  
+- $\mathcal{L}$ = total loss (original loss + penalty)
+- $\lambda$ = regularization strength (higher = more penalty)
+- $w^2$ = sum of squared weights  
 
 ---
 
