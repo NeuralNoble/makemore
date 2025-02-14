@@ -10,7 +10,7 @@ The issue Karpathy encounters in the third video is  **saturation in the tanh ac
    
    $\text{tanh}'(x) = 1 - \text{tanh}^2(x)$
 4. 
-   - When \( x \) is large (positive or negative), **tanh saturates** (i.e., becomes close to -1 or 1).
+   - When $x$ is large (positive or negative), **tanh saturates** (i.e., becomes close to -1 or 1).
    - In these regions, **the derivative approaches 0**, which **kills gradients** in backpropagation.
 4. Since many neurons are stuck at -1 or 1, their gradients vanish, meaning those neurons **no longer learn**.
 
@@ -59,8 +59,8 @@ Now, let’s break down the terms **"flat region"** and **"tail"**.
 ---
 
 ### **1. Flat Region of tanh**
-- The function **flattens out** when \( x \) is **very large or very small**.
-- This happens because $\tanh(x)$ asymptotically approaches **1 for large $ x $ and -1 for small $ x $**.
+- The function **flattens out** when  $x$ is **very large or very small**.
+- This happens because $\tanh(x)$ asymptotically approaches **1 for large $x$ and -1 for small $x$**.
 - In these regions, the slope (gradient) is **close to zero**.
 
 #### 🔥 **Why is this a problem?**
@@ -76,7 +76,7 @@ Now, let’s break down the terms **"flat region"** and **"tail"**.
 ---
 
 ### **2. Tail of tanh**
-- The **"tail"** of the tanh function refers to its outer edges, where \( x \) is very positive or very negative.
+- The **"tail"** of the tanh function refers to its outer edges, where $x$ is very positive or very negative.
 - These are the **regions where tanh saturates**, meaning:
   
   $\tanh(x) \approx 1 \quad \text{(for large \( x \))}, \quad \tanh(x) \approx -1 \quad \text{(for large negative \( x \))}$
@@ -290,7 +290,7 @@ Assumptions:
 - The input $x$ has mean **0** and variance **1** (a common case when inputs are normalized).
 - The weight $W$ is sampled from a normal distribution $N(0, \sigma^2)$.
 
-Since \(y\) is a sum of multiple weighted inputs, we compute its variance:
+Since $y$ is a sum of multiple weighted inputs, we compute its variance:
 
 $$
 \text{Var}(y) = \sum_{j} \text{Var}(W_{ij} x_j)
@@ -309,7 +309,7 @@ $$
 With **fan-in** input neurons:
 
 $$
-\text{Var}(y) = \text{fan_in} \times \sigma^2
+\text{Var}(y) = \text{fan-in} \times \sigma^2
 $$
 
 ---
@@ -331,13 +331,13 @@ $$
 Solving for $\sigma^2$:
 
 $$
-\sigma^2 = \frac{1}{\text{fan_in}}
+\sigma^2 = \frac{1}{\text{fan-in}}
 $$
 
 Taking the square root:
 
 $$
-\sigma = \frac{1}{\sqrt{\text{fan_in}}}
+\sigma = \frac{1}{\sqrt{\text{fan-in}}}
 $$
 
 This is **Xavier (Glorot) Initialization**, suitable for **tanh and sigmoid** activations.
